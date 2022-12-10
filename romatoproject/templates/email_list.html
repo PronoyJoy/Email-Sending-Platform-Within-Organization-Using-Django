@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block main %}
+
+
+<div class="container text-center">
+
+      
+        <div class="row">
+
+        {% for i in category  %}
+
+                        <div class="col">
+                          {{i.name}}
+                          <hr>
+
+
+                          {% if email  %}
+
+                          
+                                {% for j in email %}
+
+                                        {% if i.name == j.category.name and request.user.email == j.to %}
+
+
+                                        <div class="card">
+                                                <div class="card-header">
+                                                
+                                                </div>
+                                                <div class="card-body">
+                                                <h5 class="card-title">{{ j.subject }}</h5>
+                                                <p class="card-text"></p>
+                                                <a href="{% url 'detail' j.id %}" class="btn btn-primary">See Details</a>
+                                                </div>
+                                        </div>
+
+                                
+
+                                        {% else %}
+
+                                        {% endif %}
+                        
+                                {% endfor %}
+                          
+
+                          
+                          
+                          
+                          {% endif %}
+
+
+
+
+                        </div>
+
+        {% endfor %}
+      
+        </div>
+     
+</div>
+
+
+
+{% comment %} 
+
+<div class="card">
+ {% for i in category  %}
+
+ <div class='bg-secondary'>
+<h3> {{i.name}} </h3>
+{% if email %}
+
+        {% for j in email %}
+
+                {% if i.name == j.category.name and request.user.email == j.to %}
+
+
+                <div class="card">
+                        <div class="card-header">
+                        
+                        </div>
+                        <div class="card-body">
+                          <h5 class="card-title">{{ j.subject }}</h5>
+                          <p class="card-text"></p>
+                          <a href="{% url 'detail' j.id %}" class="btn btn-primary">See Details</a>
+                        </div>
+                </div>
+
+            
+
+                {% else %}
+
+                {% endif %}
+            
+        {% endfor %}
+
+        <hr> <hr>
+        <div>
+{% else %}
+
+   <p>Empty!</p>
+
+{% endif %}
+
+
+   <hr>
+ {% endfor %} {% endcomment %}
+</div>
+{% endblock main %}

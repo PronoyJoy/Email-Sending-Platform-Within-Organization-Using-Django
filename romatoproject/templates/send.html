@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+
+
+
+{% if user.is_authenticated %}
+
+<div class="container pt-5 mt-5">
+<h2>Send  Email </h2>
+ {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<form action='{% url 'send' %}' method='POST'>
+
+{% csrf_token %}
+
+
+
+<div class="form-group">
+  <label for="exampleFormControlSelect4">Select Category</label>
+  <select class="form-control" name="category" id="exampleFormControlSelect4">
+
+    {% for i in category %}
+
+     <option>{{i.name}}</option> 
+    
+    {% endfor %}
+   
+  </select>
+
+</div>
+
+<div class="form-group">
+  <label for="exampleFormControlInput1">Send To:</label>
+  <input type="email" name="to" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+</div>
+
+<div class="form-group">
+  <input type="email" name="sender" value= "{{ request.user }}" class="form-control invisible" id="exampleFormControlInput3" placeholder="name@example.com">
+</div>
+
+
+
+<div class="form-group">
+  <label for="exampleFormControlInput2">Subject:</label>
+  <input type="text" name="subject" class="form-control" id="exampleFormControlInput2">
+</div>
+
+
+<div class="form-group">
+  <label for="exampleFormControlTextarea1">Compose Email</label>
+  <textarea class="form-control" name="body" id="exampleFormControlTextarea1" rows="3"></textarea>
+</div>
+
+<button type="submit" class="mt-2 mb-5 btn btn-primary mb-2">Send</button>
+</form>
+
+
+
+
+</div>
+</div>
+{% endif %}
+
+
+
+
+{% endblock main %}
